@@ -98,7 +98,7 @@ class Contact extends Component {
                                         minLength: minLength(2),
                                         maxLength: maxLength(15)
                                     }}
-                                    />
+
                                     <Errors
                                         className="text-danger"
                                         model=".firstName"
