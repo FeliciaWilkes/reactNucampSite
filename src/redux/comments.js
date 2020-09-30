@@ -1,7 +1,7 @@
-import {COMMENTS} from '../shared/comments';
+import { COMMENTS } from '../shared/comments';
 
-export const Campsites = (state = COMMENTS, action) => {
-    switch (action.type){
+export const Comments = (state = COMMENTS, action) => {
+    switch (action.type) {
         default:
             return state;
     }

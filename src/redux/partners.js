@@ -1,8 +1,7 @@
+import { PARTNERS } from '../shared/partners';
 
-import {PARTNERS} from '../shared/partners';
-
-export const Campsites = (state = PARTNERS, action) => {
-    switch (action.type){
+export const Partners = (state = PARTNERS, action) => {
+    switch (action.type) {
         default:
             return state;
     }
