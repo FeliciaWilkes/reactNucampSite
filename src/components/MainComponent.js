@@ -1,16 +1,18 @@
 import React, { Component } from "react";
-import Directory from "./DirectoryComponent";
-import CampsiteInfo from "./CampsiteInfoComponent";
-import Header from './HeaderComponent';
-import Footer from './FooterComponent';
-import Home from './HomeComponent';
-import Contact from './ContactComponent';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import About from './AboutComponent';
 import { addComment, fetchCampsites } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import About from './AboutComponent';
+import CampsiteInfo from "./CampsiteInfoComponent";
+import Contact from './ContactComponent';
+import Directory from "./DirectoryComponent";
+import Footer from './FooterComponent';
+import Header from './HeaderComponent';
+import Home from './HomeComponent';
 
 const mapStateToProps = state => {
+    
     return {
         campsites: state.campsites,
         comments: state.comments,
@@ -20,11 +22,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+    fetchCampsites: () => (fetchCampsites()),
+    resetFeedbackForm: () => (actions.reset('feedbackForm')),
     addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
     fetchCampsites: () => (fetchCampsites())
 };
 class Main extends Component {
-    componentDidMount() {
+    compmonentDidMount() {
         this.props.fetchCampsites();
     }
 
@@ -61,7 +65,7 @@ class Main extends Component {
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                     <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                    <Route exact path='/contactus' component={Contact} />
+                    <Route exact path='/contactus' render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
                     <Route exact path='/aboutus' render={() => <About partners={this.props.partners} />} />
                     <Redirect to='/home' />
                 </Switch>
