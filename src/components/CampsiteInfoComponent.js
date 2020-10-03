@@ -8,7 +8,7 @@ import { baseUrl } from '../shared/baseUrl';
 const maxLength = len => val => !(val) || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
 
-function RenderCampsite({ campsite }) {
+function RenderComments({ comments, postComment, campsiteId }) {
     return (
         <div className="col-md-5 m-1">
             <Card>
@@ -43,7 +43,7 @@ function RenderComments({ comments, addComment, campsiteId }) {
 
                     );
                 })}
-                <CommentForm campsiteId={campsiteId} addComment={addComment} />
+                <CommentForm campsiteId={campsiteId} postComment={postComment} />
             </div>
         );
     }
@@ -68,9 +68,7 @@ class CommentForm extends Component {
     }
     handleSubmit(values) {
         this.toggleModal();
-        this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
     }
 
     render() {
@@ -173,7 +171,7 @@ function CampsiteInfo(props) {
                     <RenderCampsite campsite={props.campsite} />
                     <RenderComments
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
                     />
                 </div>
